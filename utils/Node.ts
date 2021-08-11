@@ -14,7 +14,7 @@ export class LinkedListNode extends Node{
 }
 
 export class GraphNode extends Node{
-    neighbors: GraphNode[];
+    neighbors :GraphNode[];
     constructor(val, neighbors = []){
         super(val);
         this.neighbors = neighbors;
