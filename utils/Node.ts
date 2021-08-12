@@ -20,3 +20,21 @@ export class GraphNode extends Node{
         this.neighbors = neighbors;
     }
 }
+
+interface weightedNeighbor {
+    neighbor: SuperGraphNode;
+    weight: number;
+}
+
+
+export class SuperGraphNode extends GraphNode{
+    currDistance :number;
+    parent: SuperGraphNode;
+    weightedNeighbors: weightedNeighbor[];
+    constructor(val, weightedNeighbors = [], currDistance = null, parent = null){
+        super(val);
+        this.weightedNeighbors = weightedNeighbors;
+        this.currDistance = currDistance;
+        this.parent = parent;
+    }
+}
