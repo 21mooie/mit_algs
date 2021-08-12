@@ -8,22 +8,29 @@ import relax from "../../utils/relax";
 // in a graph a non-negative weighted graph. 
 // This algorithm not only finds the shortest distance from one vertex to another
 // it finds the shortest distance from one vertex to all other vertexes in the graph.
-const dijkstra = (graph :WeightedGraph, source :SuperGraphNode, target :SuperGraphNode) :WeightedGraph => {
+const dijkstra = (graph :WeightedGraph, source :SuperGraphNode) :WeightedGraph => {
     graph = initSingleSource(graph, source);
     const set = new Set();
-    const queue = new MinPriorityQueue(graph.vertices, 'currDistance');
-    // while(queue.length > 0){
-    //     let curr = extractMin(queue);
-    //     set.add(curr);
-    //     for(let weightedVertex of curr.weightedNeighbors){
-    //         let vertex  = weightedVertex.vertex;
-    //         let weight = weightedVertex.weight;
-    //         weightedVertex = relax(vertex, curr, weight);
-    //     }
-    //     return graph;
-    // }
+    const queue = new MinPriorityQueue(constructNewArray(graph.vertices), 'currDistance');
+    while(queue.heap.getHeapSize() > 0){
+        const curr :SuperGraphNode = queue.extractMin();
+        set.add(curr);
+        for(let weightedNeighbor of curr.weightedNeighbors){
+            let vertex :SuperGraphNode  = weightedNeighbor.neighbor;
+            let weight :number = weightedNeighbor.weight;
+            vertex = relax(vertex, curr, weight);
+        }
+    }
     return graph;
 };
+
+function constructNewArray(oldArray :any[]) :any[] {
+    let array = [];
+    for(let i=0; i<oldArray.length; i++){
+        array.push(oldArray[i]);
+    }
+    return array;
+}
 
 
 export default dijkstra;

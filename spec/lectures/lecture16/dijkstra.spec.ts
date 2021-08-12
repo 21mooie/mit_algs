@@ -1,6 +1,6 @@
 import dijkstra from "../../../lectures/lecture16/dijkstra";
 import { WeightedGraph } from "../../../utils/Graph";
-import { SuperGraphNode } from "../../../utils/Node";
+import { LinkedListNode, SuperGraphNode } from "../../../utils/Node";
 
 describe('Dijkstra', () => {
     let graph = new WeightedGraph();
@@ -69,6 +69,26 @@ describe('Dijkstra', () => {
     });
 
     it('should be able to return the shortest path on this graph from s to x.', () => {
-        graph = dijkstra(graph, s, x);
+        // this should return a graph with the shortest paths from the starting vertex to
+        // all remaining vertices in the graph
+        graph = dijkstra(graph, s);
+
+        // build path by following parent pointers of desired vertex back to source
+        // to give shortest path
+        let vertex :SuperGraphNode = z;
+        let list = new LinkedListNode(vertex.val);
+        while(vertex.val !== s.val){
+            vertex = vertex.parent;
+            let newNode = new LinkedListNode(vertex.val, list);
+            list = newNode;
+        }
+        
+        // create array for comparison
+        let array = [];
+        while(list){
+            array.push(list.val);
+            list = list.next;
+        }
+        expect(array).toEqual(['s', 'y', 'z']);
     });
 });

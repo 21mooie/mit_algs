@@ -11,6 +11,14 @@ abstract class Heap{
         this.buildHeap();
     }
 
+    getLength() :number {
+        return this.length;
+    }
+
+    getHeapSize() :number {
+        return this.heapSize;
+    }
+
     parent(idx :number) :any{
         return this.array[Math.floor(idx/2)];
     }
@@ -68,4 +76,19 @@ export class MinHeap extends Heap{
         }
         return false;
     }
-}
+
+    getMin() :any[]{
+        return this.array[1];
+    }
+
+    extractMin() :any{
+        if(this.getHeapSize() < 1){
+            throw new Error("Heap underflow");
+        }
+        const min = this.getMin();
+        this.array[1] = this.array[this.getHeapSize()];
+        this.heapSize--;
+        this.heapify(1);
+        return min;
+    }
+ }

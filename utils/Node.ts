@@ -36,5 +36,6 @@ export class SuperGraphNode extends GraphNode{
         this.weightedNeighbors = weightedNeighbors;
         this.currDistance = currDistance;
         this.parent = parent;
+        delete this.neighbors;
     }
 }
