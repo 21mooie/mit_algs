@@ -7,9 +7,17 @@ export class Graph{
     }
 };
 
+interface Edge{
+    origin :SuperGraphNode;
+    destination :SuperGraphNode;
+    weight :number;
+}
+
 export class WeightedGraph{
     vertices: SuperGraphNode[];
-    constructor(vertices = []){
+    edges :Edge[];
+    constructor(vertices = [], edges = []){
         this.vertices = vertices;
+        this.edges = edges;
     }
 };
